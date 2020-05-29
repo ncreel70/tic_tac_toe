@@ -1,0 +1,45 @@
+body {
+    color: red;
+    text-align: center;
+}
+
+h1 {
+    margin: auto;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    font-size: 250px;
+    font-family: 'Bebas Neue', cursive;}
+
+#grid {
+    display: grid;
+    grid-template-rows: 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 38px;
+    color: red;
+    border: solid 5px black;
+}
+
+.leftBorderOverride {
+    border-left: none !important;
+}
+
+.topBorderOverride {
+    border-top: none !important;
+}
+
+.rightBorderOverride {
+    border-right: none !important;
+}
+
+.bottomBorderOverride {
+    border-bottom: none !important;
+}
