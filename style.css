@@ -23,7 +23,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 38px;
+    padding-top: 60px;
+    padding-bottom: 30px;
     color: red;
     border: solid 5px black;
 }
