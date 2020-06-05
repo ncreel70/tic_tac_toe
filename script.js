@@ -1,49 +1,72 @@
-const turnCounter = (() => {
-  let count = 1;
-  let marker = '';
-  const turn = () => {
-    count++;
+const turn = (() => {
+  let count = 1  ;
+  console.log(count)
+
+  const updateTurn = () => count++;
+
+  const marker = () => {
+    
     if(count % 2 === 0 || count == 0){
-      return marker = 'x';
+      return 'x';
     } else {
-      return marker = 'o';
+      return 'o';
     }
   }
-  return {turn, count};
+    
+  return {marker, updateTurn};
 })();
 
-const game = (() => {  
+const boardDraw = (() => {  
   let cellArray = document.getElementsByClassName('cell');
+
   for (let i = 0; i < cellArray.length; i++) {
 
     cellArray[i].addEventListener('click', (e) => {
-      
+      turn.updateTurn();
       if(e.target.innerText === '' || e.target.innerText === 'null') {
-        e.target.innerText = turnCounter.turn();
+        e.target.innerText = turn.marker();
+        boardState.placeMarker(e.target.id);
+        console.log(boardState.baseBoard)
+        boardState.winCon();
      }
     })
   }
-  return {cellArray}
 })();
 
-function assignArrayValue() {
 
-  let boardLocation = {
-    leftBot: [0,0],
-    leftMid: [0,1],
-    leftTop: [0,2],
-    midBot: [1,0],
-    middMid: [1,1],
-    topMid: [2,1],
-    rightBot: [2,0],
-    rightMid: [2,1],
-    rightTop: [2,2]
-  }
+const boardState = (() => {
 
-  for(let location in boardLocation) {
-    if(document.getElementById(location) === target.id) {
-      
+  const baseBoard = {
+    topLeft: 1,
+    topMid: 2,
+    topRight: 3,
+    midLeft: 4,
+    midMid: 5,
+    midRight: 6,
+    botLeft: 7,
+    botMid: 8,
+    botRight: 9
+  };
+  
+  const placeMarker = (boardCellId) => {
+    if(turn.marker() === 'x') {
+      baseBoard[boardCellId] = 'x'
+    } else {
+      baseBoard[boardCellId] = 'o'
     }
   }
 
-}
+  const winCon = () => {
+    if(baseBoard['topLeft'] === baseBoard['topMid'] && baseBoard['topLeft'] === baseBoard['topRight'] ||
+    baseBoard['botLeft'] === baseBoard['botMid'] && baseBoard['botLeft'] === baseBoard['botRight'] ||
+    baseBoard['midLeft'] === baseBoard['midMid'] && baseBoard['midLeft'] === baseBoard['midRight'] ||
+    baseBoard['topLeft'] === baseBoard['midMid'] && baseBoard['topLeft'] === baseBoard['botRight'] ||
+    baseBoard['topRight'] === baseBoard['midMid'] && baseBoard['topRight'] === baseBoard['botLeft'] ||
+    baseBoard['topRight'] === baseBoard['midRight'] && baseBoard['topRight'] === baseBoard['botRight'] ||
+    baseBoard['topMid'] === baseBoard['midMid'] && baseBoard['topMid'] === baseBoard['botMid'] ||
+    baseBoard['topLeft'] === baseBoard['midLeft'] && baseBoard['topLeft'] === baseBoard['botLeft']){
+      alert(turn.marker().toUpperCase() + ' Wins!')
+    }
+  }
+  return {placeMarker, winCon, baseBoard}
+})();
